@@ -23,7 +23,7 @@ def get_progression(root, progression):
             chord = Chord.from_note_index(x, "", checkedRoot, diatonic=True)
             chords.append(chord)
     except:
-        print("Error: chords not found")
+        print("Error: chords not found due to invalid root")
     
     return chords
 
@@ -41,24 +41,32 @@ def checkRoot(root):
     
     return checkedRoot
 
-#Converting Roman Numerals into Integars
-def romanToInt(progression):
+#Helper for romanToInt
+def loopProgression(progression):
     progList = []
 
     numbers = {
         "I": 1, "II": 2, "III": 3, "IV": 4, "V": 5, "VI": 6, "VII": 7
     }
 
+    for x in progression:
+        if x in numbers:
+            progList.append(numbers[x])
+        else:
+            print("Error: invalid progression")
+            return []
+    
+    return progList
+
+#Converting Roman Numerals into Integars
+def romanToInt(progression):
+
     if isinstance(progression, str):
         temp = progression.split("-")
-        for x in temp:
-            if x in numbers:
-                progList.append(numbers[x])
+        progList = loopProgression(temp)
 
     if isinstance(progression, list):
-        for x in progression:
-            if x in numbers:
-                progList.append(numbers[x])
+        progList = loopProgression(progression)
     
     return progList
 
@@ -72,6 +80,7 @@ def test():
     prog1 = "I-IV-V"
     prog2 = ["I", "IV", "V"]
     prog3 = []
+    prog4 = ["I", "IV", "VIV"]
 
     #explicit major root
     chords1 = get_progression(root1, prog1)
@@ -86,7 +95,9 @@ def test():
     #empty root
     chords6 = get_progression(root5, prog1)
     #empty progression
-    chords7 = get_progression(root4, prog3)
+    chords7 = get_progression(root3, prog3)
+    #invalid progression
+    chords8 = get_progression(root4, prog4)
 
     printChords(chords1)
     printChords(chords2)
@@ -95,6 +106,7 @@ def test():
     printChords(chords5)
     printChords(chords6)
     printChords(chords7)
+    printChords(chords8)
 
 #Calls test function
 test()
