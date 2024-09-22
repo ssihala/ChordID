@@ -23,7 +23,7 @@ def get_progression(root, progression):
             chord = Chord.from_note_index(x, "", checkedRoot, diatonic=True)
             chords.append(chord)
     except:
-        print("Error: chord not found")
+        print("Error: chords not found")
     
     return chords
 
