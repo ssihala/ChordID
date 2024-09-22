@@ -48,11 +48,11 @@ def test():
 
     chord1 = get_progression(root1, prog1)
     chord2 = get_progression(root2, prog1)
-    chord2 = get_progression(root2, prog2)
+    chord3 = get_progression(root2, prog2)
 
     printChords(chord1)
     printChords(chord2)
-    printChords(chord2)
+    printChords(chord3)
 
 #Calls test function
 test()
